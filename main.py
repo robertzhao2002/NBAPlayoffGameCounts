@@ -1,7 +1,7 @@
 from collections import defaultdict
 from bs4 import BeautifulSoup
-import requests
 import matplotlib.pyplot as plt
+from security import safe_requests
 
 
 def get_suffix(year):
@@ -22,7 +22,7 @@ year = input()
 URL = URL_PREFIX + get_suffix(year)
 print(URL)
 
-resp = requests.get(URL, headers=HEADERS)
+resp = safe_requests.get(URL, headers=HEADERS)
 soup = BeautifulSoup(resp.content, "html.parser")
 series_row = soup.find_all("table", {"id": "all_playoffs"})[0].find_all(
     "tr", {"class": None}
